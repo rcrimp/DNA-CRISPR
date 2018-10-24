@@ -57,20 +57,11 @@ var module = {
   loadScene: function() {
     var loader = new THREE.OBJLoader();
 
-    // load base (podium) mesh
-    /*loader.load('models/DNA_base.obj', function ( object ) {
-      object.children[0].material = new THREE.MeshLambertMaterial( {color: 0x888888} );
-      object.rotation.set(0, 0, -Math.PI / 2);// * Math.Pi);
-      module.scene.add( object );
-      }
-    );*/
-
     // load piece mesh
-    //loader.load('models/DNA_piece.obj', function ( object ) {
     loader.load('models/DNA_piece.obj', function ( object ) {
-      dna_piece_geometry = object.children[0].geometry;// = blue_material;
-      dna_piece_geometry.computeFaceNormals();
-      dna_piece_geometry.computeVertexNormals(true);
+      dna_piece_geometry = object.children[0].geometry;
+      //dna_piece_geometry.computeFaceNormals();
+      //dna_piece_geometry.computeVertexNormals(true);
     });
     this.pieces = [];
   },
@@ -130,7 +121,6 @@ function animate() {
   requestAnimationFrame(animate);
   update();
   render();
-  
 }
 
 // Update controls and stats
@@ -147,11 +137,6 @@ function update() {
     var target_position = new THREE.Vector3(pan, rad * Math.sin(rot), rad * Math.cos(rot));
     module.camera.rotation.set(-rot, 0, 0);
     module.camera.position = module.camera.position.lerp(target_position, 1.0);
-
-    // update light pos
-    //console.log(module.camera.light.position);
-    //module.camera.light.position.set(new THREE.Vector3(0, 1, 0));
-    //module.camera.light.rotation.set(-rot, 0, 0);
   }
 
   if (module.controls != null) {
@@ -183,4 +168,3 @@ if (window.addEventListener)
 else if (window.attachEvent)
   window.attachEvent('onload', initializeLesson);
 else window.onload = initializeLesson;
-
